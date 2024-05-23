@@ -9,7 +9,7 @@ volatile char* memory;
 
 void read_memory(size_t memory_size) {
     for (size_t i = 0; i < memory_size; i += PAGE_SIZE) {
-        // Чтение из памяти
+        
         volatile char value = memory[i];
 
         if (i % (DELAY_PAGES * PAGE_SIZE) == 0) {
@@ -20,7 +20,7 @@ void read_memory(size_t memory_size) {
 
 void write_memory(size_t memory_size) {
     for (size_t i = 0; i < memory_size; i += PAGE_SIZE) {
-        // Запись в память
+        
         memory[i] = 'x';
 
         if (i % (DELAY_PAGES * PAGE_SIZE) == 0) {
