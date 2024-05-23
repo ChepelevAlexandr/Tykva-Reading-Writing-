@@ -2,11 +2,10 @@
 #include <chrono>
 #include <thread>
 
-const size_t PAGE_SIZE = 4096; // Размер страницы 4 KiB
-const size_t DELAY_PAGES = 1000; // Задержка через каждые DELAY_PAGES страниц
-const size_t MEMORY_SIZE_FACTOR = 1000; // Увеличенный множитель размера памяти
-
-volatile char* memory; // Глобальная переменная для чтения/записи
+const size_t PAGE_SIZE = 4096; 
+const size_t DELAY_PAGES = 1000; 
+const size_t MEMORY_SIZE_FACTOR = 1000; 
+volatile char* memory; 
 
 void read_memory(size_t memory_size) {
     for (size_t i = 0; i < memory_size; i += PAGE_SIZE) {
@@ -14,7 +13,7 @@ void read_memory(size_t memory_size) {
         volatile char value = memory[i];
 
         if (i % (DELAY_PAGES * PAGE_SIZE) == 0) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(1)); // Задержка
+            std::this_thread::sleep_for(std::chrono::milliseconds(1)); 
         }
     }
 }
@@ -25,7 +24,7 @@ void write_memory(size_t memory_size) {
         memory[i] = 'x';
 
         if (i % (DELAY_PAGES * PAGE_SIZE) == 0) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(1)); // Задержка
+            std::this_thread::sleep_for(std::chrono::milliseconds(1)); 
         }
     }
 }
@@ -36,9 +35,9 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    size_t memory_size = MEMORY_SIZE_FACTOR * 1024 * 1024; // Размер памяти в МБ
+    size_t memory_size = MEMORY_SIZE_FACTOR * 1024 * 1024; 
 
-    memory = new volatile char[memory_size]; // Выделение памяти
+    memory = new volatile char[memory_size]; 
 
     if (std::string(argv[1]) == "read") {
         std::cout << "Reading memory..." << std::endl;
@@ -54,6 +53,6 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    delete[] memory; // Освобождение памяти
+    delete[] memory; 
     return 0;
 }
